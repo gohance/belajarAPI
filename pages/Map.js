@@ -5,7 +5,9 @@ import {
   View
 } from 'react-native';
 
-import MapView from 'react-native-maps'
+import MapView , { Marker }
+from 'react-native-maps'
+
 
 
 export default class Map extends Component {
@@ -22,20 +24,22 @@ export default class Map extends Component {
               ...StyleSheet.absoluteFillObject,
             }
         })
-          
-        return (
-            <View style ={styles.container}>
-                <MapView
-                style={styles.map}
-                region={{
-                    latitude: -6.302403,
-                    longitude: 106.652248,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.015,
-                }}
-                >
-                </MapView>
-            </View>
-        )
+
+        const pin = {
+          latitude: -6.302403, longitude: 106.652248 
+        };
+
+         return (
+          <View style ={styles.container}>
+            <MapView style={styles.map}
+              region={{
+              latitude: -6.302403, longitude: 106.652248,
+              latitudeDelta: 0.005, longitudeDelta: 0.005,
+              }}>
+              <Marker coordinate={pin} title={'Lintang'}
+              description={'Aku di sini'} pinColor={'magenta'}/>
+            </MapView>
+          </View>
+         )
     }
 }
