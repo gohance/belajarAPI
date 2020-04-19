@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Map from './pages/Map';
 import MapCustom from './pages/MapCustom';
+import MapPolyline from './pages/MapPolyline';
 import MapDirection from './pages/MapDirection';
 
 export default class App extends Component {
@@ -23,9 +24,14 @@ export default class App extends Component {
             options={{title: 'Map 2'}}
           />
           <Stack.Screen
+            name="MapPolyline"
+            component={MapPolyline}
+            options={{title: 'Map 3'}}
+          />
+          <Stack.Screen
             name="MapDirection"
             component={MapDirection}
-            options={{title: 'Map 3'}}
+            options={{title: 'Map 4'}}
           />
         </Stack.Navigator>
       </NavigationContainer>

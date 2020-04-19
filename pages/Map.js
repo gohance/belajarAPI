@@ -8,8 +8,6 @@ import {
 import MapView , { Marker }
 from 'react-native-maps'
 
-
-
 export default class Map extends Component {
     render() {
         const styles = StyleSheet.create({
