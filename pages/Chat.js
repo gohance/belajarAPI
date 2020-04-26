@@ -30,10 +30,12 @@ export default class Chat extends Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSend = this.handleSend.bind(this)
+        this.getMessagesData = this.getMessagesData.bind(this)
     }
+
     render() {
         return (
-            <View style={{ flext: 1 }}>
+            <View style={{ flex: 1 }}>
                 <ScrollView style={{ marginBottom: 50 }}>
                     {
                         this.state.messages.map(message => {
@@ -84,6 +86,29 @@ export default class Chat extends Component {
                 </View>
             </View>
         )
+    }
+
+    componentDidMount () {
+        this.getMessagesData();
+    }
+
+    getMessagesData () {
+        const self = this;
+        self.setState({
+            messages: []
+        }, function() {
+            database.ref('messages').on('value', function(snapshots){
+                var newData = []
+                snapshots.forEach(snapshot => {
+                    var value = snapshot.val()
+                    value['key'] = snapshot.key
+                    newData.push(value)
+                })
+                self.setState({
+                    messages: newData
+                })
+            })
+        })
     }
 
     handleChange (input) {
