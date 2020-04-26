@@ -29,18 +29,24 @@ export default class MapDirection extends Component {
         }}
         style={StyleSheet.absoluteFill}>
           <MapView.Marker 
-            coordinate={coordinates[0]} />
+            coordinate={coordinates[0]} 
+            title={'Purwadhika'}
+            description={'Coding School'}
+            />
 
           <MapView.Marker 
-            coordinate={coordinates[1]} />
+            coordinate={coordinates[1]} 
+            title={'Gohan'}
+            description={'Parningotan'}
+            />
 
           <MapViewDirections
             origin={coordinates[0]}
             destination={coordinates[1]}
             apikey={initialData.GOOGLE_MAPS_APIKEY}
             strokeWidth={3}
-            strokeColor="hotpink" />
-
+            strokeColor="hotpink"
+            />
         </MapView>
 
     )

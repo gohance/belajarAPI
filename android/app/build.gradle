@@ -134,6 +134,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [
+            onesignal_app_id: "a0fb2cfd-5416-41e3-981a-dfa898c18403",
+            onesignal_google_project_number: "539866987098"
+        ]
     }
     splits {
         abi {
