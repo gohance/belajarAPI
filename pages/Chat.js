@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, ScrollView, StyleSheet, TextInput, Button } from 'react-native'
+import { database } from '../utility/firebase'
 
 export default class Chat extends Component {
     constructor (props) {
@@ -23,8 +24,12 @@ export default class Chat extends Component {
                 id : 123,
                 name: 'Gohan',
                 email: 'gohanparningotanlg@gmail.com'
-            }
+            },
+            newMessage: ''
         }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSend = this.handleSend.bind(this)
     }
     render() {
         return (
@@ -68,12 +73,35 @@ export default class Chat extends Component {
                         flex:1,
                         paddingLeft: 10,
                         paddingRight: 10
-                    }}/>
+                        }}
+                        onChangeText={(input) => {this.handleChange(input)}}
+                        />
                     <Button title="Send" style={{ 
                         width: 150
-                    }}/>
+                        }}
+                        onPress={this.handleSend}
+                        />
                 </View>
             </View>
         )
+    }
+
+    handleChange (input) {
+        this.setState({
+            newMessage: input
+         })
+    }
+
+    handleSend () {
+        const self = this;
+        database.ref('messages').push({
+            content: self.state.newMessage,
+            date: 123,
+            sender_name: 'Gohan'
+        }, function () {
+            self.setState({
+                newMessage: ''
+            })
+        })
     }
 }
