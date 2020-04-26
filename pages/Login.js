@@ -1,7 +1,18 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, Button } from 'react-native' 
+import { database, auth } from '../utility/firebase'
 
 export default class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleLogin = this.handleLogin.bind(this)
+    }
     render() {
         return (
             <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
@@ -19,6 +30,7 @@ export default class Login extends Component {
                         marginBottom: 10,
                         backgroundColor: '#fff'
                         }}
+                    onChangeText={(input, name) => {this.handleChange(input, 'email')}}
                     />
                 <TextInput 
                     textContentType="password"
@@ -29,12 +41,34 @@ export default class Login extends Component {
                         marginBottom: 10,
                         backgroundColor: '#fff'
                         }}
+                    onChangeText={(input, name) => {this.handleChange(input, 'password')}}
                     />
-                <Button title="Signup" style={{
+                <Button title="Login" style={{
                     height: 100
                     }}
+                    onPress={this.handleLogin}
                     />
             </View>
         )
+    }
+
+    handleChange (input, name) {
+        this.setState({
+            [name]: input
+        })
+    }
+
+    handleLogin () {
+        console.log('email', this.state.email)
+        console.log('password', this.state.password)
+        database.ref('users')
+            .orderByChild('email').equalTo(this.state.email)
+            .once('value', function (snapshots) {
+                if(snapshots != null) {
+                    // TODO login
+                } else {
+                    // TODO signup
+                }
+            })
     }
 }
