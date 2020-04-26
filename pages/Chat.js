@@ -6,24 +6,9 @@ export default class Chat extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            messages: [
-                { id: 1, sender_name: "Gohan Parningotan", content: "ini message", date: "123", senderId: 123 },
-                { id: 2, sender_name: "Gohan Parningotan", content: "ini message", date: "123" },
-                { id: 3, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 4, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 5, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 6, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 7, sender_name: "Gohan Parningotan", content: "ini message", date: "123", senderId: 123 },
-                { id: 8, sender_name: "Gohan Parningotan", content: "ini message", date: "123" },
-                { id: 9, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 10, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 11, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-                { id: 12, sender_name: "Gohan Parningotan", content: "ini message", date: "123"},
-            ],
+            messages: [],
             account: {
-                id : 123,
-                name: 'Gohan',
-                email: 'gohanparningotanlg@gmail.com'
+                email: ''
             },
             newMessage: ''
         }
@@ -89,6 +74,12 @@ export default class Chat extends Component {
     }
 
     componentDidMount () {
+        const { email } = this.props.route.params;
+        this.setState({
+            account: {
+                email: email
+            }
+        })
         this.getMessagesData();
     }
 
@@ -122,8 +113,8 @@ export default class Chat extends Component {
         const self = this;
         database.ref('messages').push({
             content: self.state.newMessage,
-            date: 123,
-            sender_name: 'Gohan'
+            sender_name: self.state.account.email,
+            date: new Date().toTimeString()
         }, function () {
             self.setState({
                 newMessage: ''

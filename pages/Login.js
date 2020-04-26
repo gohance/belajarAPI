@@ -63,9 +63,7 @@ export default class Login extends Component {
         auth.signInWithEmailAndPassword(self.state.email, self.state.password)
             .then(result => {
                 self.props.navigation.navigate('Chat', {
-                    account: {
-                        email: self.state.email
-                    }
+                    email: self.state.email
                 })
             })
             .catch(err => {
