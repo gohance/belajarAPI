@@ -59,16 +59,52 @@ export default class Login extends Component {
     }
 
     handleLogin () {
-        console.log('email', this.state.email)
-        console.log('password', this.state.password)
-        database.ref('users')
-            .orderByChild('email').equalTo(this.state.email)
-            .once('value', function (snapshots) {
-                if(snapshots != null) {
-                    // TODO login
-                } else {
-                    // TODO signup
-                }
+        const self = this;
+        auth.signInWithEmailAndPassword(self.state.email, self.state.password)
+            .then(result => {
+                self.props.navigation.navigate('Chat', {
+                    account: {
+                        email: self.state.email
+                    }
+                })
             })
+            .catch(err => {
+                console.log(err)
+            })
+        
+        // database.ref('users')
+        //     .orderByChild('email').equalTo(this.state.email).limitToFirst(1)
+        //     .once('value', function (snapshots) {
+        //         if(snapshots != null) {
+        //             snapshots.forEach(snapshot => {
+        //                 var account = snapshot.val()
+        //                 account[key] = snapshot.key
+
+        //                 // TODO login
+        //                 auth.signInWithEmailAndPassword(self.state.email, self.state.password)
+        //                 .then(result => {
+        //                     self.props.navigation.navigate('Chat', {
+        //                         account: account
+        //                     })
+        //                 })
+        //                 .catch(err => {
+        //                     console.log(err)
+        //                 })
+        //             })
+        //         } else {
+        //             // TODO signup
+        //             auth.createUserWithEmailAndPassword(self.state.email, self.state.password)
+        //                 .then(result => {
+        //                     self.props.navigation.navigate('Chat', {
+        //                         account: {
+        //                             email: self.state.email
+        //                         }
+        //                      })
+        //                 })
+        //                 .catch(err => {
+        //                     console.log(err)
+        //                 })
+        //         }
+        //     })
     }
 }
