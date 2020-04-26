@@ -112,7 +112,8 @@ export default class Chat extends Component {
     }
 
     handleChange (input) {
-        this.setState({
+        const self = this;
+        self.setState({
             newMessage: input
          })
     }

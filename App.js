@@ -11,7 +11,7 @@ export default class App extends Component {
     const Stack = createStackNavigator();
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Chat">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Chat"
             component={Chat}
