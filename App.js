@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
 
 import Chat from './pages/Chat';
+import Login from './pages/Login';
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,11 @@ export default class App extends Component {
             name="Chat"
             component={Chat}
             options={{title: 'Chat'}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{title: 'Login'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
